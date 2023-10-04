@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 04 okt 2023 om 15:07
+-- Gegenereerd op: 04 okt 2023 om 15:59
 -- Serverversie: 10.4.27-MariaDB
 -- PHP-versie: 8.2.0
 
@@ -36,15 +36,16 @@ CREATE TABLE `co-maker` (
                             `Student` int(11) NOT NULL,
                             `Leerjaar` date NOT NULL,
                             `Beschrijving` varchar(255) NOT NULL,
-                            `Foto` int(11) NOT NULL
+                            `Foto` int(11) NOT NULL,
+                            `Video` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `co-maker`
 --
 
-INSERT INTO `co-maker` (`Co-makerID`, `Naam`, `Uitvoering`, `Student`, `Leerjaar`, `Beschrijving`, `Foto`) VALUES
-    (1, 'Wereld Natuur Fonds', '2023-10-12', 2, '2023-10-02', 'Schilpadden redden', 12313123);
+INSERT INTO `co-maker` (`Co-makerID`, `Naam`, `Uitvoering`, `Student`, `Leerjaar`, `Beschrijving`, `Foto`, `Video`) VALUES
+    (1, 'Wereld Natuur Fonds', '2023-10-12', 2, '2023-10-02', 'Schilpadden redden', 12313123, 0);
 
 -- --------------------------------------------------------
 
