@@ -2,10 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
     <title>Document</title>
 </head>
 <body>
-    
+<main class="app">
+    <div class="header">
+        <h2>Upload Images and Videos</h2>
+        <div class="server-message"></div>
+    </div>
+
+    <div class="input-div">
+        <p>Drag & drop images or videos here or <span class="browse">Browse</span></p>
+        <input type="file" class="file" multiple="multiple" accept="image/*, video/*, mp4/*">
+    </div>
+
+    <form id="saved-form">
+        <div class="header">
+            <h3>Saved In Server</h3>
+            <button type="submit">Delete</button>
+        </div>
+        <div class="saved-div"></div>
+    </form>
+
+    <form id="queued-form">
+        <div class="header">
+            <h3> Queued In Frontend</h3>
+            <button type="submit">Upload</button>
+        </div>
+        <div class="queued-div"></div>
+    </form>
+</main>
+<script src="/mediaUpload.js"></script>
 </body>
 </html>
