@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style src="style.css">
+
+    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    
+
+
+    
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="140_logo_1280.jpg" alt="Logo" height="40">
+        </div>
+
+        <nav class="navigation">
+            <a href="index">Home</a>
+            <a href="Testimonials"> Testimonials </a>
+            <a href="form">Comaker invullen </a>
+            <a href="aboutUs">Over ons</a>
+        </nav>
+    </header>
+    
+
+    <div class="container">
+        <h1 id="headerForm"> Invul formulier </h1>
+        <form id="formInvul">
+            
+            <label for="firstName"> First name: </label>
+            <input type="text" name="NameTextField" id="first_name" required>
+            <label>Achternaam: </label>
+            <input type="text" name="Achternaam" id="AchterNaam" required>
+            <label>Student Nummer: </label>
+            <input type="text" name="StudentNummer" id="StudentNummer">
+            <label> Description</label>
+            <input type="text" name="Description">
+            <label> comaker type </label>  
+
+            <select id="comaker_type" name="comaker_type" required>
+                <option value="Internship">SE</option>
+                <option value="Research">BIM</option>
+                <option value="Project">Cyber</option>
+                
+            </select>
+
+            <label id for="year_of_comaker">Jaar Comaker:</label>
+            <input type="date" id="year_of_comaker" name="year_of_comaker" required>
+
+            <label for="company_name">Bedrijfs Naam:</label>
+            <input type="text" id="company_name" name="company_name" required>
+
+            <input type="submit" value="Submit">
+            
+
+
+
+
+        </form>
+
+
+
+
+
+
+
+
+
+    </div>
+
+    <footer>
+        
+    </footer>
+    
+</body>
+
+
+</html>
