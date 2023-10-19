@@ -1,81 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style src="style.css">
 
-    </style>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <%- include("partials/head.ejs") %>
     
-
-
-    
-</head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="140_logo_1280.jpg" alt="Logo" height="40">
-        </div>
-
-        <nav class="navigation">
-            <a href="index">Home</a>
-            <a href="Testimonials"> Testimonials </a>
-            <a href="form">Comaker invullen </a>
-            <a href="aboutUs">Over ons</a>
-        </nav>
-    </header>
+    <%- include("partials/nav.ejs") %>
     
-
+    <header>
+        
+    </header>
     <div class="container">
-        <h1 id="headerForm"> Invul formulier </h1>
+        <h1 id="headerForm">Invul formulier</h1>
         <form id="formInvul">
-            
-            <label for="firstName"> First name: </label>
-            <input type="text" name="NameTextField" id="first_name" required>
-            <label>Achternaam: </label>
-            <input type="text" name="Achternaam" id="AchterNaam" required>
-            <label>Student Nummer: </label>
-            <input type="text" name="StudentNummer" id="StudentNummer">
-            <label> Description</label>
-            <input type="text" name="Description">
-            <label> comaker type </label>  
-
-            <select id="comaker_type" name="comaker_type" required>
-                <option value="Internship">SE</option>
-                <option value="Research">BIM</option>
-                <option value="Project">Cyber</option>
-                
+            <label for="comaker_name">Naam Comaker:</label>
+            <input type="text" name="comaker_name" id="comaker_name" required>
+            <label for="comaker_description">Omschrijving Comaker-opdracht:</label>
+            <input type="text" name="comaker_description" id="comaker_description" required>
+            <label for="school_year">Schooljaar:</label>
+            <select id="school_year" name="school_year" required>
+                <option value="2023/2024">2023/2024</option>
+                <option value="2024/2025">2024/2025</option>
+                <option value="2025/2026">2025/2026</option>
+                <!-- Add more years as needed -->
             </select>
-
-            <label id for="year_of_comaker">Jaar Comaker:</label>
-            <input type="date" id="year_of_comaker" name="year_of_comaker" required>
-
-            <label for="company_name">Bedrijfs Naam:</label>
+            <label for="company_name">Naam Bedrijf:</label>
             <input type="text" id="company_name" name="company_name" required>
+            <label for="company_description">Omschrijving Bedrijf:</label>
+            <input type="text" name="company_description" id="company_description" required>
+            <label for="student_names">Studentnamen:</label>
+            <div id="studentFields">
+                <input type="text" name="student_name" class="student-name" required>
+            </div>
+            <button type="button" id="addStudent">Voeg Student Toe</button>
 
-            <input type="submit" value="Submit">
             
+            <label for="profile">Uitstroomprofiel:</label>
+            <select id="profile" name="profile" required>
+                <option value="Web Development">BIM</option>
+                <option value="Software Engineering">Software Engineering</option>
+                <option value="security">Security</option>
+                <option value="embedded">Embedded systems</option>
+                <option value="cloud">Cloud</option>
+                <!-- Add more profiles as needed -->
+            </select>
+            
+            <input type="checkbox" name="privacy" id="privacy">
 
-
-
-
+            
+            <input type="submit" value="Opslaan">
         </form>
-
-
-
-
-
-
-
-
-
     </div>
 
-    <footer>
-        
-    </footer>
+    <%- include("partials/footer.ejs")  %>
     
 </body>
 
