@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("partials/head.ejs") %>
+
+<style>
+  #bodyy {
+    display: flex;
+    font-family: Arial, sans-serif;
+  }
+
+  #filter-panel {
+    width: 20%;
+    padding: 20px;
+    background-color: #f5f5f5;
+    margin-top: 5%;
+  }
+
+  #testimonials-list {
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .card {
+    width: 100%; /* Adjusted to take the full width */
+    margin-bottom: 20px; /* Changed margin-top to margin-bottom for better spacing */
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 5%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+
+  img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    
+    
+  }
+
+  h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 14px;
+    color: #666;
+  }
+</style>
+<script src="/TextToSpeach.js"></script>
+
+</head>
+
+<body>
+
+  <%- include("partials/nav.ejs") %>
+  <div id="bodyy">
+    <div id="filter-panel">
+      <!-- Add your filter options here -->
+      <form class="filter-panel" method="post" action="/FilterTestimonials"> 
+      <h2>Filter Panel</h2>
+      <label> Leerrichting<select id="type" name="leerrichting">
+        <option value="alles">alles</option>
+        <option value="bim">BIM</option>
+        <option value="se">SE</option>
+        <option value="ad">AD</option>
+      </select></label>
+      
+      <label> Leerjaar<select id="school_year" name="school_year">
+            <option value="alles">Alles</option>
+            <option value="2023/2024">2023/2024</option>
+            <option value="2024/2025">2024/2025</option>
+            <option value="2025/2026">2025/2026</option>
+          </select></label>
+          <button id="buttonPanel" name="submit" value="Reset" type="submit">Reset</button><br>
+          <button id="buttonPanel"  name="submit" value="Submit" type="submit">Submit</button>
+
+        </form>
+    </div>
+
+
+
+    <!-- Replace the following card sections with your actual data -->
+    <div id="testimonials-list">
+     
+        <%if(testimonialsArray < 1){%>
+          
+
+          <%
+          console.log("array is empty");
+
+        }else{
+          
+          testimonialsArray.forEach(function(testimonial, index) { %>
+          <div class="card">
+            <img src="franklin.jpeg" alt="Image 1">
+            <h3><%= testimonial.Naam %></h3>
+            <p><%= testimonial.Beschrijving %></p>
+            <p><%= testimonial.Student %></p>
+            <p><%= testimonial.Leerjaar %></p>
+          </div>
+        <% })}; %>
+      
+    </div>
+  </div>
+
+  <%- include("partials/footer.ejs")  %>
+</body>
+
+</html>

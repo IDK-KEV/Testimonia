@@ -52,7 +52,7 @@ select {
 }
 
 input[type="submit"] {
-    background-color: #007BFF;
+    background-color: #4594d3;
     color: #000; /* Text color changed to black */
     padding: 10px 20px;
     border: none;
@@ -62,13 +62,14 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-    background-color: #0056b3;
+    background-color: #4594d3;
     color: #000;
 }
 
 /* Additional styling for the privacy checkbox */
 input[type="checkbox"] {
     margin-top: 5px;
+    margin-right: 10px;
     color: #000; /* Text color changed to black */
 }
 
@@ -115,7 +116,7 @@ p {
 .fixed_footer {
   width: 100%;
   height: 350px;
-  background: #4594D3; /* Updated background color to match Luchtblauw */
+  background: #4594d3; /* Updated background color to match Luchtblauw */
   position: fixed;
   left: 0;
   bottom: 0;
@@ -142,7 +143,7 @@ nav {
   position: fixed;
   z-index: 99;
   width: 100%;
-  background: #4594D3; /* Luchtblauw - Change background color */
+  background: #4594d3; /* Luchtblauw - Change background color */
 }
 nav .wrapper {
   position: relative;
@@ -184,7 +185,7 @@ nav .wrapper {
 }
 .nav-links .drop-menu {
   position: absolute;
-  background: #4594D3; /* Luchtblauw - Change background color */
+  background: #4594d3; /* Luchtblauw - Change background color */
   width: 180px;
   line-height: 45px;
   top: 85px;
@@ -216,7 +217,7 @@ nav .wrapper {
   visibility: hidden;
 }
 .mega-box .content {
-  background: #4594D3; /* Luchtblauw - Change background color */
+  background: #4594d3; /* Luchtblauw - Change background color */
   padding: 25px 20px;
   display: flex;
   width: 100%;
@@ -277,7 +278,7 @@ nav .wrapper {
     max-width: 350px;
     top: 0;
     left: -100%;
-    background: #4594D3;
+    background: #4594d3;
     display: block;
     padding: 50px 10px;
     line-height: 50px;
@@ -290,7 +291,7 @@ nav .wrapper {
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #4594D3;
+    background: #4594d3;
   }
   ::-webkit-scrollbar-thumb {
     background: #3A3B3C;
@@ -402,5 +403,119 @@ nav input{
 .body-text div{
   font-size: 45px;
   font-weight: 600;
+
+
+}.testimonials {
+  display: flex;
+  overflow-x: auto;  /* Enable horizontal scrolling */
+  scroll-snap-type: x mandatory;  /* Snap to each testimonial */
+  height: 70vh;
+  transition: transform 0.5s ease-in-out;
+  margin: 0 -10px;  /* Add negative margin to remove space between testimonials */
 }
+
+.testimonial {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  height: 450px;
+  width: 350px;  /* Make testimonials wider */
+  padding: 30px;
+  text-align: center;
+  margin: 20px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out;
+  scroll-snap-align: start;  /* Snap to the start of each testimonial */
+}
+
+.testimonial:hover {
+  transform: scale(1.1);  /* Slightly increase scale on hover */
+}
+
+.testimonial img {
+  width: 150px;  /* Make the images larger */
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.testimonial p {
+  font-size: 18px;  /* Slightly reduce font size */
+  max-width: 250px;  /* Increase max width for better readability */
+  margin: 0 auto;
+}
+
+.testimonial .author {
+  font-style: italic;
+}
+
+.btn-container {
+  text-align: center;
+  height: 50%;
+}
+
+#btn1and2 {
+  background-color: #1ebcc5;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+  width: 150px;
+  height: 60px;
+  display: inline-block;
+}
+
+#btn:hover {
+  background-color: #1ebcc5;
+}
+
+#buttonPanel {
+  background-color: #4594d3; /* Green background color */
+  color: white; /* White text color */
+  padding: 10px 20px; /* Add some padding for better appearance */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Add border radius for rounded corners */
+  cursor: pointer; /* Add pointer cursor on hover */
+  font-size: 16px; /* Adjust font size */
+  margin-top: 20px;
+}
+
+#buttonPanel:hover {
+  background-color: #4594d3; /* Darker green color on hover */
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Show tooltip on hover */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
 

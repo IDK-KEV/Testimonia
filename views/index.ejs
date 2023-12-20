@@ -1,56 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
     <%- include("partials/head.ejs") %>
+    <link rel="stylesheet" type="text/css" href="carousel.css">
+</head>
+<header>
+    <%- include('partials/nav.ejs') %>
+</header>
+
+<h1> heolkorjc</h1>
 
 
 
+<!-- Slideshow -->
 
+<br>
+<br>
+<% testimonialsArray.forEach(function(testimonial, index) { %>
+    <div class="slideshow-container">
+      <div class="mySlides fade">
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <img src="franklin.jpeg" width="100%;">
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="card-content">
+        <p><%= testimonial.Naam %></p>
+        <p><%= testimonial.Beschrijving %></p>
+        <p><%= testimonial.Student %></p>
+        <p><%= testimonial.Leerjaar %></p>
+    </div>
+      </div>
+    </div>
+  <% }); %>
+ 
+  <br>
+  
+  <!-- The dots/circles -->
+<div style="text-align:center">
+  <% testimonialsArray.forEach(function(testimonial, index) { %>
+      <span class="dot" onclick="currentSlide( index)"></span>
+  <% }); %>
+</div>
+ 
+  </div>
+  <%- include('partials/footer.ejs') %>
+  </div>
+  
+<!-- javascript code -->
 
-<body>
+  <script>
+    let slideIndex = 0;
+  
+    function plusSlides(n) {
+      showSlides((slideIndex += n));
+    }
+  
+    function currentSlide(n) {
+      showSlides((slideIndex = n));
+    }
+  
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      if (n > slides.length) {
+        slideIndex = 1;
+      }
+      if (n < 1) {
+        slideIndex = slides.length;
+      }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slides[slideIndex - 1].style.display = "block";
+    }
+  
+    function repeater() {
+      plusSlides(1);
+      setTimeout(repeater, 5000);
+    }
+  
+    repeater();
+  </script>
+  
 
-    <header>
-       
-        <%- include('partials/nav.ejs') %>
-
-       
-    </header>
-
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-    <h1> heolkorjc</h1>
-
-
-
-
-    
-    
-
-    <%- include('partials/footer.ejs') %>
-    
-    
-
-    
-</body>
 </html>
+    

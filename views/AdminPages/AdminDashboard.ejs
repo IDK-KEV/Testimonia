@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Add any other head elements if needed -->
+    <style>
+         body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .main {
+            margin: 0 20px 20px 20px; /* Adjusted margin for the .main div */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #060606;
+            color: #fff;
+        }
+
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        p {
+            color: #555;
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 10px; /* Add margin to the buttons */
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 40px; /* Increased padding for a more spacious feel */
+            background-color: #fff;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal label {
+            display: block;
+            margin-bottom: 12px; /* Increased margin for better separation */
+            color: #333;
+            font-size: 18px; /* Increased font size for better readability */
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 15px; /* Increased padding for input fields */
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .modal button {
+            width: 100%;
+            padding: 15px; /* Increased padding for the button */
+            font-size: 18px; /* Increased font size for the button */
+            background-color: #070707;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .modal button.confirm-button {
+            background-color: #c0672b;
+        }
+
+        .modal button:hover {
+            background-color: #c0392b;
+        }
+
+
+    </style>
+
+    <script>
+        
+    </script>
+</head>
+<body>
+    <%- include("PartialsAdmin/sidenav.ejs") %>
+
+    <div class="main">
+      
+
+        <% if (testimonialsArray && testimonialsArray.length > 0) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Co-makerID</th>
+                        <th>Naam</th>
+                        <th>Student</th>
+                        <th>Leerjaar</th>
+                        <th>Beschrijving</th>
+                        <th>Leerrichting</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% testimonialsArray.forEach(function(coMaker, index) { %>
+                        <tr>
+                            <td><%= coMaker.ComakerID%></td>
+                            <td><%= coMaker.Naam %></td>
+                            <td><%= coMaker.Student %></td>
+                            <td><%= coMaker.Leerjaar %></td>
+                            <td><%= coMaker.Beschrijving %></td>
+                            <td><%= coMaker.LeerRichting%></td>
+                            
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+            <div class="main">
+             
+        
+                <!-- edit button -->
+                <button onclick="openEditModal()">Edit</button>
+        
+                <!-- delete button -->
+                <button onclick="openDeleteModal()">Delete</button>
+        
+                <!-- archive button -->
+                <button onclick="openAddModal()">ADD</button>
+        
+            </div>
+        
+            <!-- Edit Modal -->
+            <div id="editModal" class="modal">
+                <form id="editForm" action="/editPostCoMaker" method="post">
+                    <label>ID</label>
+                    <input type="text" required name="ID"> <br>
+                    <label>Comaker Naam</label>
+                    <input type="text" required name="ComakerNaam"><br>
+                    <label>Student naam</label>
+                    <input type="text" required name="Student"><br>
+                    <label>Leerjaar</label>
+                    <select id="Leerjaar" name="Leerjaar" required>
+                        <option value="2022/2023">2022/2023</option>
+                        <option value="2023/2024">2023/2024</option>
+                        <option value="2024/2025">2024/2025</option>
+                        <option value="2025/2026">2025/2026</option>
+                        
+                    </select><br>
+                    <label>Beschrijving</label>
+                    <input type="text" required name="Beschrijving"><br>
+                    <label>Leerrichting</label>
+                    <select id="Leerrichting" name="Leerrichting" required>
+                        <option value="BIM">BIM</option>
+                        <option value="SE">Software Engineering</option>
+                        <option value="AD">AD</option>
+                        <option value="security">Security</option>
+                        <option value="embedded">Embedded systems</option>
+                        <option value="cloud">Cloud</option>
+                    </select><br>
+                    
+                    <button type="button" onclick="submitEditForm()">Submit</button>
+                </form>
+                <button onclick="closeEditModal()">Close</button>
+            </div>
+            <div id="deleteModal" class="modal delete-modal">
+                <form id="deleteForm" action="/deletePostComaker" method="post">
+                    <label>ID to delete:</label>
+                    <input type="text" id="ID" name="ID" required><br>
+                    <button type="button" onclick="confirmDelete()">Yes, Delete</button>
+                </form>
+                <button onclick="closeDeleteModal()">Cancel</button>
+            </div>
+        
+            <div id="addModal" class="modal">
+                <form id="addForm" action="/addPostComaker" method="post">
+                    <label>Comaker Naam</label>
+                    <input type="text" required name="ComakerNaam"><br>
+                    <label>Student naam</label>
+                    <input type="text" required name="Student"><br>
+                    <label>Leerjaar</label>
+                    <select id="Leerjaar" name="Leerjaar" required>
+                        <option value="2022/2023">2022/2023</option>
+                        <option value="2023/2024">2023/2024</option>
+                        <option value="2024/2025">2024/2025</option>
+                        <option value="2025/2026">2025/2026</option>
+                        
+                       
+                    </select><br>
+                    <label>Beschrijving</label>
+                    <input type="text" required name="Beschrijving"><br>
+                    <label>Leerrichting</label>
+                    <select id="Leerrichting" name="Leerrichting" required>
+                        <option value="BIM">BIM</option>
+                        <option value="SE">Software Engineering</option>
+                        <option value="AD">AD</option>
+                        <option value="security">Security</option>
+                        <option value="embedded">Embedded systems</option>
+                        <option value="cloud">Cloud</option>
+                        
+                        
+                    </select><br>
+                    <button type="button" onclick="submitAddForm()">Add Testimonial</button>
+                </form>
+                <button onclick="closeAddModal()">Close</button>
+            </div>
+            
+        <% } else { %>
+            <p>No coMakers available in the array.</p>
+        <% } %>
+
+    </div>
+
+    <script>
+         function openEditModal() {
+            // Show edit modal
+            document.getElementById('editModal').style.display = 'block';
+        }
+
+        function closeEditModal() {
+            // Close  edit modal
+            document.getElementById('editModal').style.display = 'none';
+        }
+
+        function submitEditForm() {
+            // Submit formpje
+            document.getElementById('editForm').submit();
+        }
+        function openDeleteModal() {
+            // Show  delete modal
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function confirmDelete() {
+            // Handle the gorm after input
+            document.getElementById('deleteForm').submit();
+            closeDeleteModal(); // You should implement the actual deletion logic in the server-side code
+        }
+
+        function closeDeleteModal() {
+            // Close  delete modal
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        function openAddModal() {
+            // Show  add modal
+            document.getElementById('addModal').style.display = 'block';
+        }
+
+        function closeAddModal() {
+            // Close  add modal
+            document.getElementById('addModal').style.display = 'none';
+        }
+
+        function submitAddForm() {
+            // Submitt
+            document.getElementById('addForm').submit();
+        }
+
+    </script>
+</body>
+</html>

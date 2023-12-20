@@ -6,24 +6,27 @@
 
     <link rel="stylesheet" href="style.css">
 
-    
-
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const addStudentButton = document.getElementById('addStudent');
-            const studentFields = document.getElementById('studentFields');
-        
-            addStudentButton.addEventListener('click', function () {
-                const newStudentField = document.createElement('input');
-                newStudentField.type = 'text';
-                newStudentField.name = 'student_name';
-                newStudentField.className = 'student-name';
-                newStudentField.required = true;
-                studentFields.appendChild(newStudentField);
-                console.log("hello word");
-            });
-        });
-        </script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    const addStudentButton = document.getElementById('addStudent');
+    const studentFields = document.getElementById('studentFields');
+
+    addStudentButton.addEventListener('click', function () {
+        const newStudentField = document.createElement('input');
+        newStudentField.type = 'text';
+        newStudentField.name = 'student_name';
+        newStudentField.className = 'student-name';
+        newStudentField.required = true;
+        studentFields.appendChild(newStudentField);
+        console.log("hello word");
+        console.log("test");
+    });
+});
+
+    </script>
+
+    
         
         
   

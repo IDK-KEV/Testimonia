@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Head content remains unchanged -->
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+    
+        .main {
+            margin: 0 20px 20px 20px; /* Adjusted margin for the .main div */
+        }
+    
+        h1 {
+            color: #333;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+    
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        th {
+            background-color: #060606;
+            color: #fff;
+        }
+    
+        tbody tr:hover {
+            background-color: #f5f5f5;
+        }
+    
+        p {
+            color: #555;
+            margin-top: 20px;
+        }
+
+    
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .edit-button {
+            background-color: #070707;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button {
+            background-color: #100f0f;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .edit-button:hover {
+            background-color: #2980b9;
+        }
+
+        .delete-button:hover {
+            background-color: #2bc046;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 40px; /* Increased padding for a more spacious feel */
+            background-color: #fff;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal label {
+            display: block;
+            margin-bottom: 12px; /* Increased margin for better separation */
+            color: #333;
+            font-size: 18px; /* Increased font size for better readability */
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 15px; /* Increased padding for input fields */
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .modal button {
+            width: 100%;
+            padding: 15px; /* Increased padding for the button */
+            font-size: 18px; /* Increased font size for the button */
+            background-color: #0c0c0c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .modal button.confirm-button {
+            background-color: #0a0a0a;
+        }
+
+        .modal button:hover {
+            background-color: #2bc02b;
+        }
+
+        .form-container {
+            text-align: center;
+            margin-top: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 12px; /* Increased margin for better separation */
+            color: #333;
+            font-size: 18px; /* Increased font size for better readability */
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 15px; /* Increased padding for input fields */
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 15px; /* Increased padding for the button */
+            font-size: 18px; /* Increased font size for the button */
+            background-color: #0f100f;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+    .delete-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 40px; /* Increased padding for a more spacious feel */
+        background-color: #fff;
+        z-index: 1000;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .delete-modal label {
+        display: block;
+        margin-bottom: 12px; /* Increased margin for better separation */
+        color: #333;
+        font-size: 18px; /* Increased font size for better readability */
+    }
+
+    .delete-modal input {
+        width: 100%;
+        padding: 15px; /* Increased padding for input fields */
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .delete-modal button {
+        width: 100%;
+        padding: 15px; /* Increased padding for the button */
+        font-size: 18px; /* Increased font size for the button */
+        background-color: #090808;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .delete-modal button.confirm-button {
+        background-color: #010101;
+    }
+
+    .delete-modal button:hover {
+        background-color: #2bc02b;
+    }
+    
+    </style>
+
+
+</head>
+<body>
+    <%- include("PartialsAdmin/sidenav.ejs") %>
+
+    <div class="main">
+        <table>
+            <thead>
+                <tr>
+                    <th>BedrijfID</th>
+                    <th>Bedrijf Naam</th>
+                    <th>Locatie</th>
+                    <!-- Add more columns based on your coMaker structure -->
+                </tr>
+            </thead>
+            <tbody>
+                <% if(bedrijven.length >= 1){
+                    console.log(bedrijven);
+                    bedrijven.forEach(function(bedrijf, index){
+                %>
+                    <tr>
+                        <td><%= bedrijf.BedrijfID %></td>
+                        <td><%= bedrijf.BedrijfNaam %></td>
+                        <td><%= bedrijf.BedrijfLocatie %></td>                    
+                    </tr>
+                <% })}; %>
+            </tbody>
+        </table>
+
+        
+        <div id="overlay" class="overlay" onclick="closeModal()"></div>
+        <div id="editModal" class="modal">
+            <form id="editForm" action="/editedPost" method="post">
+                <label for="newId">New ID:</label>
+                <input type="text" id="newId" name="ID" required><br>
+
+                <label for="newName">New Name:</label>
+                <input type="text" id="Name" name="Bedrijf" required><br>
+
+                <label for="newLocation">New Location:</label>
+                <input type="text" id="Locatie" name="Locatie" required><br>
+
+                <button class="confirm-button" type="button" onclick="submitEditForm()">Submit</button>
+            </form>
+            <button onclick="closeModal()">Close</button>
+        </div>
+
+        <div id="deleteModal" class="delete-modal">
+            <form id="deleteForm" action="/DeletePost" method="post">
+                <label for="deleteId">Enter ID to delete:</label>
+                <input type="text" id="deleteId" name="deleteID" required><br>
+
+                <button class="confirm-button" type="button" onclick="confirmDelete()">Yes, Delete</button>
+            </form>
+            <button onclick="closeDeleteModal()">Cancel</button>
+        </div>
+
+        <div id="addModal" class="modal">
+            <form id="addForm" action="/addPost" method="post">
+                <label for="addName">Name:</label>
+                <input type="text" id="addName" name="Naam" required><br>
+
+                <label for="addLocation">Location:</label>
+                <input type="text" id="addLocation" name="Locatie" required><br>
+
+                <button class="confirm-button" type="button" onclick="submitAddForm()">Add</button>
+            </form>
+            <button onclick="closeModal()">Close</button>
+        </div>
+
+        <button onclick="Edit()">Edit</button>
+
+        <button class="confirm-button" onclick="openDeleteModal()">Delete</button>
+        <button class="confirm-button" onclick="openAddModal()">Add</button>
+    </div>
+
+    <script>
+        function Edit() {
+            // Show the edit modal
+            document.getElementById('editModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function openDeleteModal() {
+            // Show the delete modal
+            document.getElementById('deleteModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function closeDeleteModal() {
+            // Close the delete modal
+            document.getElementById('deleteModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        function closeModal() {
+            // Close any modal
+            document.getElementById('editModal').style.display = 'none';
+            document.getElementById('deleteModal').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById("addModal").style.display="none";
+        }
+
+        function submitEditForm() {
+            // Submit the edit form using JavaScript
+            document.getElementById('editForm').submit();
+        }
+
+        function confirmDelete() {
+            // Handle the delete confirmation
+            document.getElementById('deleteForm').submit();
+            closeDeleteModal();
+        }
+
+        function openAddModal() {
+            // Show the add modal
+            document.getElementById('addModal').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function submitAddForm() {
+            // Submit the add form using JavaScript
+            document.getElementById('addForm').submit();
+        }
+
+       
+    </script>
+</body>
+</html>

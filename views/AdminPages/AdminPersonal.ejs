@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    .main {
+        margin: 0 20px 20px 20px; /* Adjusted margin for the .main div */
+    }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+    header {
+        background-color: #020202;
+        color: white;
+        padding: 10px;
+        text-align: right;
+    }
+
+    .dashboard {
+        display: flex;
+        height: calc(100vh - 40px);
+    }
+
+    .content {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .logout-btn,
+    .change-password-btn {
+        background-color: #d9534f;
+        color: white;
+        padding: 10px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        margin-top: 10px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .personal-data {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        margin-top: 20px;
+    }
+
+    .personal-data li {
+        margin-bottom: 10px;
+    }
+
+    </style>
+</head>
+<body>
+    <%- include("PartialsAdmin/sidenav.ejs") %>
+    <div class="main">
+    <header>
+        <!-- For simplicity, assuming the user information is hardcoded here -->
+        <p></p>
+    </header>
+
+    <div class="dashboard">
+        <div class="content">
+            <!-- Your dashboard content goes here -->
+            <h1>Welcome to the Admin Dashboard</h1>
+            <p>This is a simple admin dashboard example.</p>
+            <ul class="personal-data">
+                <li>BeheerderID: <%=beheerderdata.BeheerderID %></li>
+                <li>Email: <%=beheerderdata.email %></li>
+                <li>Role: <%=beheerderdata.role %></li>
+                <li>Name: <%= beheerderdata.Naam %></li>
+                <li>Username: <%= beheerderdata.Username %></li>
+                <!-- Add more personal data as needed -->
+            </ul>
+            <a class="logout-btn" href="/logout">Logout</a>
+            <a class="change-password-btn" href="/change-password">Change Password</a>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

@@ -11,17 +11,19 @@
     </header>
     <div class="container">
         <h1 id="headerForm">Invul formulier</h1>
-        <form id="formInvul">
+        <form id="formInvul" method="POST" action="/form-submit" >
             <label for="comaker_name">Naam Comaker:</label>
             <input type="text" name="comaker_name" id="comaker_name" required>
             <label for="comaker_description">Omschrijving Comaker-opdracht:</label>
             <input type="text" name="comaker_description" id="comaker_description" required>
             <label for="school_year">Schooljaar:</label>
             <select id="school_year" name="school_year" required>
+                <option value="2022/2023">2022/2023</option>
                 <option value="2023/2024">2023/2024</option>
                 <option value="2024/2025">2024/2025</option>
                 <option value="2025/2026">2025/2026</option>
-                <!-- Add more years as needed -->
+                
+                <!-- je kan meer toevoegen als we zelf willen-->
             </select>
             <label for="company_name">Naam Bedrijf:</label>
             <input type="text" id="company_name" name="company_name" required>
@@ -36,18 +38,30 @@
             
             <label for="profile">Uitstroomprofiel:</label>
             <select id="profile" name="profile" required>
-                <option value="Web Development">BIM</option>
-                <option value="Software Engineering">Software Engineering</option>
+                <option value="BIM">BIM</option>
+                <option value="SE">Software Engineering</option>
+                <option value="AD">AD</option>
                 <option value="security">Security</option>
                 <option value="embedded">Embedded systems</option>
                 <option value="cloud">Cloud</option>
+                
                 <!-- Add more profiles as needed -->
             </select>
+            <label id="privacy"> Mate van privacy </label>
+            <select id="profile" name="privacy" required>
+                <option value="Volledig">Volledig</option>
+                <option value="Deels">Deels</option>
+                <option value="niet">Niet</option>
+                <!-- Add more profiles as needed -->
+            </select>
+            <span class="tooltip">?
+                <span class="tooltiptext">Volledig: alles wordt getoond
+                    deels: een deel van je data wordt getoond
+                    niet: je data wordt anoniem getoond
+                </span>
+              </span><br>
+            <input id="buttonB" type="submit" value="Opslaan">
             
-            <input type="checkbox" name="privacy" id="privacy">
-
-            
-            <input type="submit" value="Opslaan">
         </form>
     </div>
 
