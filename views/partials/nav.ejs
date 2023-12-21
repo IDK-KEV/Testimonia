@@ -1,6 +1,4 @@
-<Style>
 
-</style>
 <nav>
     <div class="wrapper">
       <div class="logo"><a href="/">Windesheim Testimonials</a></div>
@@ -25,10 +23,58 @@
           <li><a href="#">Feedback</a></li>
           <li><a href="form"> Formulier</a></li>
           
-      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+          <div class="nav-container">
+            <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+            <input type="text" id="comaker_name" name="comaker_name" required>
+            <button id="text-to-speech" name="text-to-speech" onclick="speakPage()">Tekst naar Spraak</button>
+            <button class="button" id="pausePlayBtn">Pause</button>
+            <input type="button" id="speakBtn" value="Speak">
+            <input type="button" id="pauseBtn" value="Pause">
+            <input type="button" id="cancelBtn" value="Cancel">
+        </div>
     </div>
   </nav>
+
   
   <div class="body-text">
-   
+    <script>
+      window.addEventListener('unload', function() {
+      speechSynthesis.cancel();
+      });
+
+      var speakBtn = document.getElementById('speakBtn');
+      var pausePlayBtn = document.getElementById('pausePlayBtn');
+      var cancelBtn = document.getElementById('cancelBtn');
+      var isPaused = false;
+
+      function togglePause() {
+        if (isPaused) {
+          speechSynthesis.resume();
+          pausePlayBtn.textContent = 'Pause';
+        } else {
+          speechSynthesis.pause();
+          pausePlayBtn.textContent = 'Play';
+        }
+        isPaused = !isPaused; // Toggle the pause state
+      }
+
+      function stop() {
+        speechSynthesis.cancel();
+        // Reset the pause/play button to its initial state
+        pausePlayBtn.textContent = 'Pause';
+        isPaused = false;
+      }
+
+      speakBtn.addEventListener('click', speakPage);
+      pausePlayBtn.addEventListener('click', togglePause);
+      cancelBtn.addEventListener('click', stop);
+
+      $(document).ready(function() {
+        var btn = $(".button");
+        btn.click(function() {
+          btn.toggleClass("paused");
+          return false;
+        });
+      });
+  </script>
   </div>

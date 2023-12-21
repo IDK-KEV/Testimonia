@@ -10,12 +10,13 @@ const port= 3000;
 const ejs= require("ejs");
 const app= ex();
 const mysql= require("mysql2");
-const { timeStamp } = require('console');
+const { timeStamp, error } = require('console');
 const { fromWeb } = require('winston-mysql');
 const { default: test } = require('node:test');
 const { constants } = require('os');
 
 const session= require("express-session");
+const { findSourceMap } = require('module');
 
 
 app.listen(port);
@@ -449,6 +450,22 @@ app.post('/editedPost', (req, res) => {
 
   });
 
+  app.post('/ChangePassword', function(req,res){
+    const{userId,confirmPassword}= req.body;
+    sql= "UPDATE beheerder SET Wachtwoord=? WHERE beheerderID= ?";
+    pool.query(sql,[confirmPassword,userId],function(err,results){
+      if(err){
+        console.log("errorrr");
+      }else{
+        console.log("updated password");
+      }
+    })
+
+    res.render("AdminPages/AdminPersonal",{beheerderdata:beheerderdata});
+
+
+  });
+
 
   
 app.get("/", function(req,res){
@@ -513,7 +530,6 @@ app.get("/AdminPersonal", function(req, res) {
   const storedUsername = req.session.username;
   console.log(storedUsername);
   beheerder(storedUsername);
-  console.log(beheerderdata);
   res.render("AdminPages/AdminPersonal", {beheerderdata:beheerderdata});
 });
 

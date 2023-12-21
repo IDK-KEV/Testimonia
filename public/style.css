@@ -518,4 +518,25 @@ nav input{
   opacity: 1;
 }
 
+#pausePlayBtn {
+  color: #000000; /* Set text color to white */
+  text-decoration: none;
+  font-size: 10px;  
+  font-weight: 500;
+  padding: 9px 15px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  vertical-align: middle; /* Zorgt ervoor dat ze op dezelfde hoogte zijn als de tekst */
+  background: #3A3B3C;
+
+}
+
+/* Maak de tekst-naar-spraakknop en pause-knop smaller op kleinere schermen */
+@media screen and (max-width: 970px) {
+  #text-to-speech,
+  #pausePlayBtn {
+    font-size: 12px; /* Aanpassen aan de gewenste grootte op kleinere schermen */
+  }
+}
+
 
