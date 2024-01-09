@@ -10,44 +10,76 @@
             padding: 0;
             background-color: #f4f4f4;
         }
-
+    
         .main {
             margin: 0 20px 20px 20px; /* Adjusted margin for the .main div */
         }
-
+    
         h1 {
             color: #333;
         }
-
+    
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 0px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             background-color: #fff;
         }
-
+    
         th, td {
             padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
-
+    
         th {
             background-color: #060606;
             color: #fff;
         }
-
+    
         tbody tr:hover {
             background-color: #f5f5f5;
         }
-
+    
         p {
             color: #555;
             margin-top: 20px;
         }
 
-        button {
-            margin-top: 10px; /* Add margin to the buttons */
+    
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button-container button {
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .edit-button {
+            background-color: #070707;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .delete-button {
+            background-color: #100f0f;
+            color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .edit-button:hover {
+            background-color: #2980b9;
+        }
+
+        .delete-button:hover {
+            background-color: #2bc046;
         }
 
         .modal {
@@ -83,7 +115,7 @@
             width: 100%;
             padding: 15px; /* Increased padding for the button */
             font-size: 18px; /* Increased font size for the button */
-            background-color: #070707;
+            background-color: #0c0c0c;
             color: #fff;
             border: none;
             cursor: pointer;
@@ -92,12 +124,98 @@
         }
 
         .modal button.confirm-button {
-            background-color: #c0672b;
+            background-color: #0a0a0a;
         }
 
         .modal button:hover {
-            background-color: #c0392b;
+            background-color: #2bc02b;
         }
+
+        .form-container {
+            text-align: center;
+            margin-top: 20px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 12px; /* Increased margin for better separation */
+            color: #333;
+            font-size: 18px; /* Increased font size for better readability */
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 15px; /* Increased padding for input fields */
+            margin-bottom: 20px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 15px; /* Increased padding for the button */
+            font-size: 18px; /* Increased font size for the button */
+            background-color: #0f100f;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+    .delete-modal {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 40px; /* Increased padding for a more spacious feel */
+        background-color: #fff;
+        z-index: 1000;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .delete-modal label {
+        display: block;
+        margin-bottom: 12px; /* Increased margin for better separation */
+        color: #333;
+        font-size: 18px; /* Increased font size for better readability */
+    }
+
+    .delete-modal input {
+        width: 100%;
+        padding: 15px; /* Increased padding for input fields */
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .delete-modal button {
+        width: 100%;
+        padding: 15px; /* Increased padding for the button */
+        font-size: 18px; /* Increased font size for the button */
+        background-color: #090808;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .delete-modal button.confirm-button {
+        background-color: #010101;
+    }
+
+    .delete-modal button:hover {
+        background-color: #2bc02b;
+    }
 
 
     </style>
@@ -112,7 +230,7 @@
     <div class="main">
       
 
-        <% if (testimonialsArray && testimonialsArray.length > 0) { %>
+        <% if (testimonialsArrayAdmin && testimonialsArrayAdmin.length > 0) { %>
             <table>
                 <thead>
                     <tr>
@@ -122,11 +240,11 @@
                         <th>Leerjaar</th>
                         <th>Beschrijving</th>
                         <th>Leerrichting</th>
-
+                        <th> </th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% testimonialsArray.forEach(function(coMaker, index) { %>
+                    <% testimonialsArrayAdmin.forEach(function(coMaker, index) { %>
                         <tr>
                             <td><%= coMaker.ComakerID%></td>
                             <td><%= coMaker.Naam %></td>
@@ -134,6 +252,7 @@
                             <td><%= coMaker.Leerjaar %></td>
                             <td><%= coMaker.Beschrijving %></td>
                             <td><%= coMaker.LeerRichting%></td>
+                            <td><button class="button-favorite" onclick="toggleFavorite('<%coMaker.ComakerID %>')" data-id="<%= coMaker.ComakerID %>">&#9733;</button></td>
                             
                         </tr>
                     <% }); %>
@@ -143,13 +262,14 @@
              
         
                 <!-- edit button -->
-                <button onclick="openEditModal()">Edit</button>
+                <button id="edit" onclick="openEditModal()">Edit</button>
         
                 <!-- delete button -->
-                <button onclick="openDeleteModal()">Delete</button>
+                <button id="delete" onclick="openDeleteModal()">Delete</button>
         
                 <!-- archive button -->
-                <button onclick="openAddModal()">ADD</button>
+                <button id="add" onclick="openAddModal()">ADD</button>
+                <button onclick="openModal()">Goedkeuren</button>
         
             </div>
         
@@ -226,8 +346,28 @@
                     <button type="button" onclick="submitAddForm()">Add Testimonial</button>
                 </form>
                 <button onclick="closeAddModal()">Close</button>
+
+               
+                
             </div>
-            
+            <div id="goedkeuren" class="modal">
+
+                <form id="goedkeur" method="post" action="/goedkeuring">
+                    <label>enter id om goed te keuren</label>
+                    <input type="text" id="ID" name="ID">
+
+                    <button type="button" onclick="submitform()">Add Testimonial</button>
+                </form>
+                <button onclick="closeModal()">Close</button>
+            </div>
+             <script>
+                document.querySelectorAll('[data-id]').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const comakerID = this.getAttribute('data-id');
+                        toggleFavorite(comakerID);
+                    });
+                });
+            </script>
         <% } else { %>
             <p>No coMakers available in the array.</p>
         <% } %>
@@ -279,6 +419,89 @@
             // Submitt
             document.getElementById('addForm').submit();
         }
+        function openModal(){
+            document.getElementById('goedkeuren').style.display = 'block';
+        }
+
+        function closeModal(){
+            document.getElementById('goedkeuren').style.display = 'none';
+
+        }
+
+        function submitform(){
+            document.getElementById('goedkeur').submit();
+        }
+
+        let favorites = []; // Lijst met favorieten
+
+        function rearrangeTable() {
+            const tableBody = document.querySelector('tbody');
+            const rows = Array.from(tableBody.querySelectorAll('tr'));
+
+            const sortedRows = rows.sort((a, b) => {
+                const idA = parseInt(a.querySelector('td:first-child').innerText);
+                const idB = parseInt(b.querySelector('td:first-child').innerText);
+                const aIsFavorite = favorites.includes(idA);
+                const bIsFavorite = favorites.includes(idB);
+
+                if (aIsFavorite && !bIsFavorite) {
+                    return -1; // A naar boven verplaatsen als het favoriet is en B niet
+                } else if (!aIsFavorite && bIsFavorite) {
+                    return 1; // B naar boven verplaatsen als het favoriet is en A niet
+                } else {
+                    return 0; // Geen verplaatsing als beide of geen van beide favoriet zijn
+                }
+            });
+
+            // Vernieuw de tabelinhoud met de gesorteerde rijen
+            tableBody.innerHTML = '';
+            sortedRows.forEach(row => {
+                tableBody.appendChild(row);
+            });
+        }
+
+        function toggleFavorite(comakerID) {
+            const index = favorites.indexOf(comakerID);
+            const button = document.querySelector(`button[data-id="${comakerID}"]`);
+            console.log('Toggle favoriet voor ID:', comakerID);
+
+
+            if (index === -1) {
+                favorites.push(comakerID); // Toevoegen aan favorieten als het nog niet favoriet is
+                button.classList.add('button-favorite'); // Voeg de klasse toe aan de knop
+            } else {
+                favorites.splice(index, 1); // Verwijderen als het al favoriet is
+                button.classList.remove('button-favorite'); // Verwijder de klasse van de knop
+            }
+            console.log("Favorieten: ", favorites); // Toon favorieten in console (kan worden verwijderd in productie)
+            rearrangeTable(); // Tabel opnieuw ordenen op basis van favorieten
+        }
+            // Voeg een eventlistener toe aan elk element met de data-id attribuut
+            document.querySelectorAll('[data-id]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const comakerID = this.getAttribute('data-id'); // Haal de ID op van het element waarop geklikt is
+                    toggleFavorite(comakerID); // Toggle de favorietstatus van deze CoMaker
+                    toggleFavoriteOnServer(comakerID); // Stuur de favorietstatus naar de server
+                });
+            });
+
+            // Stuur de favorietstatus naar de server via een fetch request
+            function toggleFavoriteOnServer(comakerID) {
+                fetch(`http://localhost:3000/toggleFavorite`, {
+                    method: 'POST',
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    // Vernieuw de pagina of update de favorieten dynamisch zonder de pagina te vernieuwen
+                    window.location.reload(); // Vernieuw de pagina na het toggelen van de favoriet
+                })
+                .catch(error => {
+                    console.error('There was a problem toggling the favorite status:', error);
+                    // Handel de fout af, geef een melding weer, etc.
+                });
+            }
 
     </script>
 </body>

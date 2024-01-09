@@ -24,11 +24,24 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-    </script>
 
+        function speakPage() {
+            if ('speechSynthesis' in window) {
+                var msg = new SpeechSynthesisUtterance();
+                
+                // Verzamel alle tekst van de pagina
+                var allText = document.documentElement.innerText;
+                
+                if (allText !== '') {
+                    msg.text = allText;
+                    window.speechSynthesis.speak(msg);
+                } else {
+                    alert("Geen tekst om voor te lezen.");
+                }
+            } else {
+                alert("Sorry, je browser ondersteunt geen spraaksynthese.");
+            }
+        }
     
-        
-        
-  
-    
+    </script>
 </head>

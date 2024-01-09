@@ -188,12 +188,16 @@
                 <!-- Add more personal data as needed -->
             </ul>
             <a class="logout-btn" href="/">Logout</a>
-            <a class="logout-btn" onclick="openModal('edit')">Change Password</a>
-            <a class="logout-btn"> Beheer</a>
+            <a class="logout-btn" onclick="openModal('myModal')">Change Password</a>
+            <%if(beheerderdata.role==="Super"){%>
+               <a class="logout-btn" onclick="openModal('beheerder')"> Voeg Beheerder toe</a>
+               <%
+            } %>
+            
             
           
             <div class="my-modal" id="myModal">
-              <div class="my-form-container">
+              <div class="my-form-container"> 
                 <form method="post" action="/ChangePassword">
                 <label for="userId">User ID:</label>
                 <input type="text" id="userId" name="userId" required>
@@ -204,10 +208,25 @@
                 <label for="confirmPassword">Confirm Password:</label>
                 <input type="password" id="confirmPassword" name="confirmPassword" required>
           
-                <button class="confirm-button" onclick="submitForm()">Submit</button>
-                <button class="confirm-button" onclick="closeModal()">Close</button>
+                <button class="confirm-button" onclick="submitForm('myModal')">Submit</button>
+                <button class="confirm-button" onclick="closeModal('myModal')">Close</button>
 
                 </form>
+              </div>
+              </div>
+              <div class="my-modal" id="beheerder">
+              <div class="my-form-container">
+                <form method="post" action="/beheerderpost">
+                  <label for="naam">Naam:</label>
+                  <input type="text" id="firstname" name="firstname" required ><br>
+                <button class="confirm-button" onclick="submitForm('beheerder')">Submit</button>
+                <button class="confirm-button" onclick="closeModal('beheerder')">Close</button>
+
+                </form>
+              </div>
+              </div>
+              <div>
+
               </div>
             </div>
           
@@ -217,21 +236,22 @@
 
     <script>
         function openModal(type) {
-          var modal = document.getElementById('myModal');
-          modal.style.display = 'block';
-          // You can add additional logic here based on the type of modal (edit/delete)
-        }
+        var modal = document.getElementById(type);
+        modal.style.display = 'block';
+    }
+
+    function closeModal(type) {
+        var modal = document.getElementById(type);
+        modal.style.display = 'none';
+    }
+
+    function submitForm(type) {
+        // Add your form submission logic here
+        alert('Form submitted for ' + type + '!');
+        closeModal(type);
+    }
+
     
-        function closeModal() {
-          var modal = document.getElementById('myModal');
-          modal.style.display = 'none';
-        }
-    
-        function submitForm() {
-          // Add your form submission logic here
-          alert('Form submitted!');
-          closeModal();
-        }
       </script>
 </body>
 </html>

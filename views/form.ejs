@@ -49,9 +49,21 @@
             </select>
             <label id="privacy"> Mate van privacy </label>
             <select id="profile" name="privacy" required>
-                <option value="Volledig">Volledig</option>
-                <option value="Deels">Deels</option>
-                <option value="niet">Niet</option>
+                <option value="Volledig">
+                    <span class="tooltip">Volledig
+                        <span class="tooltiptext">Alles wordt getoond</span>
+                    </span>
+                </option>
+                <option value="Deels">
+                    <span class="tooltip">Deels
+                        <span class="tooltiptext">Een deel van je data wordt getoond</span>
+                    </span>
+                </option>
+                <option value="Niet">
+                    <span class="tooltip">Niet
+                        <span class="tooltiptext">Je data wordt anoniem getoond</span>
+                    </span>
+                </option>
                 <!-- Add more profiles as needed -->
             </select>
             <span class="tooltip">?

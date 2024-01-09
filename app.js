@@ -32,19 +32,15 @@ app.use(bodyParser.urlencoded({extended:true}));
     saveUninitialized: true
   }));
 
+const testimonialAdmin=[];// array van alle testimonials voor amdin
+const testimonials = [];// array van alle testimonials die goedgekeurd zijn worden hier opgeslagen en getoond op website
+const arrayFilter=[]; //array van filter
 
-
-
-const testimonials = [];// array van alle testimonials worden hierin opgeslagen
-const arrayFilter=[]; //arrat van filter
 const bedrijven =[];
 const bedrijvenPost=[];
 const logs=[];  // array van alle logs 
 
 var beheerderdata= {};
-
-
-
 
   app.set("trust proxy", true);
 
@@ -79,6 +75,16 @@ var beheerderdata= {};
     })
 
   }
+
+  function generatePassword() {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
 
   
 
@@ -118,7 +124,7 @@ function BedrijvenLijst(){
   return bedrijven;
 }
   function ArrayQuery(){
-    let query= "SELECT * FROM coMaker" ;
+    let query= "SELECT * FROM coMaker WHERE Status > 0"  ;
     pool.query(query,function(error,results){
       if(error){
         console.log('error');
@@ -133,7 +139,7 @@ function BedrijvenLijst(){
     })
     return testimonials;
   }
-
+  
   function GetLogs(){
     const sql= "SELECT * FROM Logs";
     pool.query(sql, function(error,results){
@@ -149,9 +155,30 @@ function BedrijvenLijst(){
     });
     return logs;
   }
+
+  function ArrayQueryBeheerder(){
+
+    let query= "SELECT * FROM coMaker"  ;
+    pool.query(query,function(error,results){
+      if(error){
+        console.log('error');
+        console.log(error);
+      }else{
+        for(let i=0; i<results.length;i++){
+          let row=results[i];
+          let coMaker= new Testimonial(row.Student,row.Beschrijving,row.Naam,row.CoMakerID,row.Leerjaar,row.Leerrichting);
+          testimonialAdmin.push(coMaker);
+        }
+      }
+    })
+ 
+    return testimonialAdmin;
+  }
+
  
 
 var testimonialsArray=ArrayQuery();
+var testimonialsArrayAdmin=ArrayQueryBeheerder();
 var bedrijvenArray= BedrijvenLijst();
   
 
@@ -206,8 +233,9 @@ var bedrijvenArray= BedrijvenLijst();
           }
           else{
             req.session.username = Username;
-            console.log("hashed password=" + hashedPassword)
-            res.render('AdminPages/AdminDashboard', {testimonialsArray});
+            console.log("hashed password=" + hashedPassword);
+            beheerder(Username);
+            res.render('AdminPages/AdminDashboard', {testimonialsArrayAdmin});
           }
         })
       
@@ -260,7 +288,7 @@ app.post('/editedPost', (req, res) => {
    
     
   })
-  const logMessage= "user "+ req.session.username +" made an edit on table BEdrijven";
+  const logMessage= "admin "+ req.session.username +" made an edit on table BEdrijven";
   const level= logger.level
   let query= "INSERT INTO Logs(DescriptionLog,Type) VALUES(?,?)";
       pool.query(query,[logMessage,level],function(error,results){
@@ -275,7 +303,7 @@ app.post('/editedPost', (req, res) => {
 
       });
       logger.info(logMessage);
-      res.render( "AdminPages/AdminBedrijven",{bedrijven:bedrijven})
+      res.render( "AdminPages/AdminBedrijven",{bedrijven:bedrijvenArray})
       bedrijven.length=0;
 });
 
@@ -358,7 +386,7 @@ app.post('/editedPost', (req, res) => {
 
       }else{
         console.log("yessir");
-        ArrayQuery();
+        ArrayQueryBeheerder();
       }
       const logMessage= "user "+ req.session.username +" made an edit on table coMaker";
       const level= logger.level
@@ -377,8 +405,8 @@ app.post('/editedPost', (req, res) => {
         logger.info(logMessage);
     })
     
-    res.render("AdminPages/AdminDashboard",{testimonialsArray:testimonialsArray})
-    testimonials.length=0;
+    res.render("AdminPages/AdminDashboard",{testimonialsArrayAdmin:testimonialsArrayAdmin})
+    testimonialAdmin.length=0;
   });
 
   app.post("/deletePostComaker",function(req,res){
@@ -392,7 +420,7 @@ app.post('/editedPost', (req, res) => {
         res.status(404).render("404");
       }else{
         console.log("yesssirrr");
-        ArrayQuery();
+        ArrayQueryBeheerder();
       }
       const logMessage= "user "+ req.session.username +" Deleted a row in BEdrijven";
       const level= logger.level
@@ -410,8 +438,8 @@ app.post('/editedPost', (req, res) => {
         });
         logger.info(logMessage);
     })
-    res.render("AdminPages/AdminDashboard",{testimonialsArray:testimonialsArray})
-    testimonials.length=0;
+    res.render("AdminPages/AdminDashboard",{testimonialsArrayAdmin:testimonialsArrayAdmin})
+    testimonialAdmin.length=0;
     
   });
 
@@ -426,9 +454,9 @@ app.post('/editedPost', (req, res) => {
       res.status(404).render("404");
     } else {
       console.log("yessirrrr");
-      ArrayQuery();
+      ArrayQueryBeheerder();
     }
-    const logMessage= "user"+ req.session.username +" added a row in BEdrijven";
+    const logMessage= "user"+ req.session.username +" added a row in Comaker";
     const level= logger.level
     let sql= "INSERT INTO Logs(DescriptionLog,Type) VALUES(?,?)";
         pool.query(sql,[logMessage,level],function(error,results){
@@ -444,8 +472,8 @@ app.post('/editedPost', (req, res) => {
         });
         logger.info(logMessage);
     
-    res.render('AdminPages/AdminDashboard', {testimonialsArray });
-    testimonials.length=0;
+    res.render('AdminPages/AdminDashboard', {testimonialsArrayAdmin });
+    testimonialAdmin.length=0;
   })
 
   });
@@ -466,9 +494,68 @@ app.post('/editedPost', (req, res) => {
 
   });
 
+  app.post("/beheerderpost", function(req,res){
+    const{firstname}=req.body;
+    console.log(firstname);
+   
+    username= firstname+ "_Beheerder"
+    email= firstname+"@windesheim.nl"
+    role="Beheerder"
+    password= generatePassword();
+
+  
+
+    sql="INSERT INTO beheerder(Naam,Username,Wachtwoord,email, role) VALUES(?,?,?,?,?)"
+    pool.query(sql,[firstname,username,password,email,role],function(results,err){
+      if(err){
+        console.log("erorrrr");
+        console.log(err);
+      }else{
+        console.log("nice job");
+        
+      }
+    })
+    res.render("AdminPages/AdminPersonal",{beheerderdata:beheerderdata});
+  });
+
+  app.post("/toggleFavorite", function(req, res) {
+    const coMakerID = req.params.id; // Verkrijg de CoMaker ID uit de URL parameter
+  
+    // Toggle de favoriet status in de database
+    let query = "UPDATE coMaker SET Favoriet = 1- Favoriet WHERE CoMakerID = ?";
+    pool.query(query, [coMakerID], function(error, results) {
+      if (error) {
+        console.error('Error toggling favorite status:', error);
+        res.status(500).send("Error toggling favorite status");
+      } else {
+        // Stuur een bevestiging terug naar de frontend
+        res.status(200).send("Favorite status toggled");
+      }
+    });
+  });
+
+  app.post('/goedkeuring', function(req, res) {
+    const { ID } = req.body;
+    const query = "UPDATE coMaker SET Status=1 WHERE CoMakerID=?";
+
+    pool.query(query, [ID], function(err, results) {
+        if (err) {
+            console.error("Error updating record:", err);
+            res.status(500).send("Internal Server Error"); // Send an appropriate error response
+        } else {
+            console.log("Record updated successfully");
+            res.render('index', { testimonialsArray: testimonialsArray });
+        }
+    });
+});
+
+
 
   
 app.get("/", function(req,res){
+      console.log(testimonials);
+      console.log(testimonialAdmin);
+  
       res.render("index",{testimonialsArray:testimonialsArray});
      
     
@@ -504,34 +591,60 @@ app.get("/adminLogin" , function(req,res){
 });
 
 app.get("/AdminDashboard", function(req,res){
-  testimonialsArray=ArrayQuery();
-  res.render("AdminPages/AdminDashboard",{testimonialsArray:testimonialsArray});
-  testimonials.length=0;
+  if(req.session.username){
+  res.render("AdminPages/AdminDashboard",{testimonialsArrayAdmin:testimonialsArrayAdmin});
+  testimonialAdmin=0;
+  
   console.log(req.url);
+
+  }else{
+    res.status(404).render("404");
+
+  }
+  
   
 })
 app.get("/AdminBedrijven", function(req,res){
+  if(req.session.username){
   console.log(bedrijven);
   bedrijvenArray=BedrijvenLijst();
   res.render("AdminPages/AdminBedrijven",{bedrijven:bedrijvenArray});
   bedrijven.length=0;
   console.log(req.url);
+  }else{
+    res.status(404).render("404");
+  }
   
 })
 let arrayLogs=GetLogs();
+
 app.get("/AdminLogging", function(req,res){
+  if(req.session.username){
   res.render("AdminPages/AdminLogging",{arrayLogs:arrayLogs});
   console.log(req.url);
+  }else{
+    res.status(404).render("404");
+
+  }
   
   
-})
-app.get("/AdminPersonal", function(req, res) {
-  
+});
+app.get("/AdminPersonal", async function(req, res) {
+  if(req.session.username){
   const storedUsername = req.session.username;
   console.log(storedUsername);
-  beheerder(storedUsername);
+  const functie= await beheerder(storedUsername);
   res.render("AdminPages/AdminPersonal", {beheerderdata:beheerderdata});
+  }
+  else{
+    res.status(404).render("404");
+
+  }
 });
+
+app.get('/tes', function(req,res){
+  res.render('tes')
+})
 
 app.use(function(req,res){
     res.status(404).render("404");

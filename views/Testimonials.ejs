@@ -58,7 +58,10 @@
     color: #666;
   }
 </style>
-<script src="/TextToSpeach.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.56/pdfmake.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.56/vfs_fonts.js"></script>
+
+
 
 </head>
 
@@ -69,53 +72,59 @@
     <div id="filter-panel">
       <!-- Add your filter options here -->
       <form class="filter-panel" method="post" action="/FilterTestimonials"> 
-      <h2>Filter Panel</h2>
-      <label> Leerrichting<select id="type" name="leerrichting">
-        <option value="alles">alles</option>
-        <option value="bim">BIM</option>
-        <option value="se">SE</option>
-        <option value="ad">AD</option>
-      </select></label>
-      
-      <label> Leerjaar<select id="school_year" name="school_year">
-            <option value="alles">Alles</option>
-            <option value="2023/2024">2023/2024</option>
-            <option value="2024/2025">2024/2025</option>
-            <option value="2025/2026">2025/2026</option>
-          </select></label>
-          <button id="buttonPanel" name="submit" value="Reset" type="submit">Reset</button><br>
-          <button id="buttonPanel"  name="submit" value="Submit" type="submit">Submit</button>
+        <h2>Filter Panel</h2>
+        <label> Leerrichting<select id="type" name="leerrichting">
+          <option value="alles">alles</option>
+          <option value="bim">BIM</option>
+          <option value="se">SE</option>
+          <option value="ad">AD</option>
+        </select></label>
 
-        </form>
+        <label> Leerjaar<select id="school_year" name="school_year">
+          <option value="alles">Alles</option>
+          <option value="2023/2024">2023/2024</option>
+          <option value="2024/2025">2024/2025</option>
+          <option value="2025/2026">2025/2026</option>
+        </select></label>
+        <button id="buttonPanel" name="submit" value="Reset" type="submit">Reset</button><br>
+        <button id="buttonPanel"  name="submit" value="Submit" type="submit">Submit</button>
+      </form>
     </div>
-
-
 
     <!-- Replace the following card sections with your actual data -->
     <div id="testimonials-list">
-     
-        <%if(testimonialsArray < 1){%>
-          
-
-          <%
-          console.log("array is empty");
-
-        }else{
-          
-          testimonialsArray.forEach(function(testimonial, index) { %>
+      <% if (testimonialsArray < 1) { %>
+        <% console.log("No testimonials available"); %>
+      <% } else { %>
+        <% testimonialsArray.forEach(function(testimonial, index) { %>
           <div class="card">
             <img src="franklin.jpeg" alt="Image 1">
-            <h3><%= testimonial.Naam %></h3>
-            <p><%= testimonial.Beschrijving %></p>
-            <p><%= testimonial.Student %></p>
-            <p><%= testimonial.Leerjaar %></p>
+            <h3 id="naam"><%= testimonial.Naam %></h3>
+            <p id="Beschrijving"><%= testimonial.Beschrijving %></p>
+            <p id="Student"><%= testimonial.Student %></p>
+            <p id="Leerjaar"><%= testimonial.Leerjaar %></p>
+            <button onclick="generatePDF('<%=testimonial.Naam%>','<%=testimonial.Beschrijving%>' ,'<%=testimonial.Student%>','<%=testimonial.Leerjaar %>')">Download me!</button>
           </div>
-        <% })}; %>
-      
+        <% }); %>
+      <% } %>
     </div>
   </div>
 
   <%- include("partials/footer.ejs")  %>
 </body>
+
+<script type="text/javascript">
+  function generatePDF(name,Description,Student,Year) {
+    var docDefinition = {
+      content: [
+        { text: "Testimonial for " + name, fontSize: 16, bold: true },
+        { text: "Description: " + Description},
+        { text: "Student: " + Student},
+        { text: "Year: " +  Year}
+      ]
+    };
+    pdfMake.createPdf(docDefinition).download(name + "_Testimonial.pdf");
+  }
+</script>
 
 </html>

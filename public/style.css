@@ -96,10 +96,11 @@ html, body {
   padding: 100px 0;
 }
 h1 {
-  color: #4594D3; /* Updated heading color to match Luchtblauw */
+  color: #010509; /* Updated heading color to match Luchtblauw */
   font-size: 3em;
   font-weight: 900;
   padding: 0 0 20px 0;
+  text-align: center;
 }
 h2 {
   color: black; /* Updated heading color to match Luchtblauw */
@@ -538,5 +539,7 @@ nav input{
     font-size: 12px; /* Aanpassen aan de gewenste grootte op kleinere schermen */
   }
 }
+
+
 
 
