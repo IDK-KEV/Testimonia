@@ -2,7 +2,7 @@
 <html lang="en">
 
     <%- include("partials/head.ejs") %>
-    
+
 <body>
     <%- include("partials/nav.ejs") %>
     
@@ -45,33 +45,24 @@
                 <option value="embedded">Embedded systems</option>
                 <option value="cloud">Cloud</option>
                 
-                <!-- Add more profiles as needed -->
+                <!-- Info about privacy -->
             </select>
             <label id="privacy"> Mate van privacy </label>
+            <span class="tooltip-container">
+                <span class="tooltip">?
+                    <span class="tooltiptext">Volledig: alles wordt getoond
+                        deels: een deel van je data wordt getoond
+                        niet: je data wordt anoniem getoond
+                    </span>
+                </span>
+            </span>
             <select id="profile" name="privacy" required>
-                <option value="Volledig">
-                    <span class="tooltip">Volledig
-                        <span class="tooltiptext">Alles wordt getoond</span>
-                    </span>
-                </option>
-                <option value="Deels">
-                    <span class="tooltip">Deels
-                        <span class="tooltiptext">Een deel van je data wordt getoond</span>
-                    </span>
-                </option>
-                <option value="Niet">
-                    <span class="tooltip">Niet
-                        <span class="tooltiptext">Je data wordt anoniem getoond</span>
-                    </span>
-                </option>
+                <option value="Volledig">Volledig</option>
+                <option value="Deels">Deels</option>
+                <option value="niet">Niet</option>
                 <!-- Add more profiles as needed -->
             </select>
-            <span class="tooltip">?
-                <span class="tooltiptext">Volledig: alles wordt getoond
-                    deels: een deel van je data wordt getoond
-                    niet: je data wordt anoniem getoond
-                </span>
-              </span><br>
+            <br>
             <input id="buttonB" type="submit" value="Opslaan">
             
         </form>

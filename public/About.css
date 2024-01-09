@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-align: center; /* Center-align the text in the body */
+}
+
+main {
+    padding: 20px; /* Add padding to the main section */
+}
+
+section {
+    text-align: left; /* Left-align text within each section */
+    margin-bottom: 20px; /* Add bottom margin to separate sections */
+}
+
+img {
+    max-width: 100%; /* Make sure images don't overflow their containers */
+    height: auto;
+    display: block; /* Remove extra space below images */
+    margin: 0 auto; /* Center-align the image */
+}
