@@ -147,20 +147,22 @@ nav {
 }
 nav .wrapper {
   position: relative;
-  max-width: 1300px;
-  padding: 0px 30px;
+  /* max-width: 1200px; */
+  padding: 20px;
   height: 70px;
   line-height: 70px;
   margin: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
+  /* justify-content: space-between; */
+} 
+
 .wrapper .logo a {
   color: #fff; /* Set text color to white */
-  font-size: 30px;
+  font-size: 25px;
   font-weight: 600;
   text-decoration: none;
+  text-align: left; /* Align children to the left */
 }
 .wrapper .nav-links {
   display: inline-flex;
@@ -305,6 +307,12 @@ nav .wrapper {
   #close-btn:checked ~ .btn.menu-btn{
     display: block;
   }
+  .nav-container {
+    display: flex;
+    justify-content: space-between; /* Spread items along the main axis */
+    align-items: center; /* Center items along the cross axis */
+    float: right;
+}
   .nav-links li{
     margin: 15px 10px;
   }
@@ -488,10 +496,21 @@ nav input{
   background-color: #4594d3; /* Darker green color on hover */
 }
 
-.tooltip {
+#privacy {
+  display: inline-block;
+  margin-right: 10px; /* Adjust as needed to provide space between label and tooltip */
+}
+
+.tooltip-container {
   position: relative;
   display: inline-block;
+}
+
+.tooltip {
   cursor: pointer;
+  position: absolute;
+  top: 50%; /* Adjust to vertically center the tooltip */
+  transform: translateY(-70%);
 }
 
 /* Tooltip text */
@@ -519,17 +538,43 @@ nav input{
 }
 
 #pausePlayBtn {
-  color: #000000; /* Set text color to white */
+  color: #fff;
   text-decoration: none;
-  font-size: 10px;  
+  font-size: 16px;
   font-weight: 500;
   padding: 9px 15px;
   border-radius: 5px;
   transition: all 0.3s ease;
-  vertical-align: middle; /* Zorgt ervoor dat ze op dezelfde hoogte zijn als de tekst */
-  background: #3A3B3C;
-
+  background-color: #4594d3; /* Set the initial background color */
+  border:  2px solid #000;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 10px;
 }
+
+#pausePlayBtn:hover {
+  background-color: #3A3B3C; /* Set the hover background color */
+}
+
+#text-to-speech {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 9px 15px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  background-color: #4594d3; /* Set the initial background color */
+  border: 2px solid #000;
+  cursor: pointer;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+#text-to-speech:hover {
+  background-color: #3A3B3C; /* Set the hover background color */
+}
+
 
 /* Maak de tekst-naar-spraakknop en pause-knop smaller op kleinere schermen */
 @media screen and (max-width: 970px) {

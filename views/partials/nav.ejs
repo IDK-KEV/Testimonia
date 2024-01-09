@@ -4,7 +4,7 @@
       <div class="logo"><a href="/">Windesheim Testimonials</a></div>
       <input type="radio" name="slider" id="menu-btn">
       <input type="radio" name="slider" id="close-btn">
-      <ul class="nav-links">
+        <ul class="nav-links">
         <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
         <li><a href="/">Home</a></li>
         <li><a href="about">About</a></li>
@@ -19,15 +19,15 @@
             <li><a href="#">Embedded Systems</a></li>
           </ul>
         </li>
-        <li>
+        
           <li><a href="#">Feedback</a></li>
           <li><a href="form"> Formulier</a></li>
-          
-          <div class="nav-container">
+        </ul>  
+        <div class="nav-container">
             <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
             <input type="text" id="comaker_name" name="comaker_name" required>
             <button id="text-to-speech" name="text-to-speech" onclick="speakPage()">Tekst naar Spraak</button>
-            <button class="button" id="pausePlayBtn">Pause</button>
+            <button class="nav-container" id="pausePlayBtn">Pause</button>
             <input type="button" id="speakBtn" value="Speak">
             <input type="button" id="pauseBtn" value="Pause">
             <input type="button" id="cancelBtn" value="Cancel">
